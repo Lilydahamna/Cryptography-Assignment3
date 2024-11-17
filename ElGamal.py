@@ -53,4 +53,4 @@ print("----------")
 print("Original Message m2:", m2)
 print("Ciphertext for m2 (C1, C2):", ciphertext_m2)
 
-print("Decrypted m2:", decrypt(35, 20, X, q))
+print("Decrypted m2:", decrypt(ciphertext_m2[0], ciphertext_m2[1], X, q))
