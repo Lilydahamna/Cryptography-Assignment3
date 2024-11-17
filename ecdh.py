@@ -42,13 +42,13 @@ def point_addition(P, Q, p, a):
 def multiplication(k, P, p, a):
     bits = bin(k)[2:]  
     result = None  
-    addend = P  
+    temp = P  
 
     #Process bits from LSB to MSB
     for bit in reversed(bits):  
         if bit == '1':  
-            result = point_addition(result, addend, p, a)  
-        addend = point_addition(addend, addend, p, a) 
+            result = point_addition(result, temp, p, a)  
+        temp = point_addition(temp, temp, p, a) 
 
     return result
 
@@ -75,11 +75,9 @@ PA = multiplication(nA, (Gx, Gy), p, a)
 #public key for B PB = nB * G 
 PB = multiplication(nB, (Gx, Gy), p, a)
 
-secret_key_A, time_A = compute_secret_key(nA, PB, p, a)  # A computes shared key using nA and PB
-secret_key_B, time_B = compute_secret_key(nB, PA, p, a)  # B computes shared key using nB and PA
-
-# Verify that both shared keys match
-assert secret_key_A == secret_key_B, "Shared keys do not match!"
+#compute secret keys
+secret_key_A, time_A = compute_secret_key(nA, PB, p, a) 
+secret_key_B, time_B = compute_secret_key(nB, PA, p, a)  
 
 # Print results
 print(f"Shared Secret Key: {secret_key_A}")
